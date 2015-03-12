@@ -49,8 +49,8 @@ define([
   });
 
   homeViewModule.onChange = function () {
-    var viewDraftBoard = _.curry(setToView)('Draft');
-    var viewTeams = _.curry(setToView)('Teams');
+    var viewDraftBoard = setToView('Draft');
+    var viewTeams = setToView('Teams');
     React.render(
         <AllPlayers 
           players={players}
