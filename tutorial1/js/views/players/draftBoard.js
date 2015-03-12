@@ -11,7 +11,7 @@ define([
       var title = "All Players";
       
       return (
-        <div id="draftBoard">
+        <div className={"draft"} id="draftBoard">
           <h4>{title}</h4>
           <PlayerList players={players.playerList} />
         </div>

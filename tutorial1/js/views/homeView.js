@@ -12,28 +12,37 @@ define([
   var home = document.getElementById('content');
   var homeViewModule = {};
   var activeViewName = "Draft";
+  var nextViewName = "Teams";
+
+  var setToView = function(viewName) {
+    return function() {
+      activeViewName = viewName;
+      homeViewModule.onChange();
+    }
+  };
 
   var AllPlayers = React.createClass({
+
     render: function () {
       var players = this.props.players;
       var teams = this.props.teams;
+      var view = null;
+
+      if(activeViewName === "Draft") {
+        view = <DraftBoard players={players}/>
+      }
+      if(activeViewName === "Teams") {
+        view = <TeamList players={players} teams={teams}/>;
+      }
 
       return (
-        <div className={'span11'} id="allPlayers">
-          <h3 className={"underline"}>{activeViewName}</h3>
-          <div className={"menu"}>
-            <ul id="menu-primary" className={"menu"}>
-              <li id="menu-item-draft" className="menu-selected">
-                <button className="draft" onClick={this.onDraft} type="button">Draft</button>
-              </li>
-              <li id="menu-item-standings" className="menu-unselected">
-                <button className="standings" onClick={this.onStandings} type="button">Standings</button>
-              </li>
-            </ul>
+        <div className={"home"} id="allPlayers">
+          <div className={"mainMenu"}>
+            <button className={"mainMenuItem"} onClick={this.props.onViewClicked}>Draft</button>
+            <button className={"mainMenuItem"} onClick={this.props.onViewTeams}>Teams</button>
           </div>
-          <section className="span7" id="main">
-            <DraftBoard players={players}/>
-            <TeamList players={players} teams={teams}/>
+          <section className={"main"} id="main">
+            {view}
           </section>
         </div>
       );
@@ -41,9 +50,13 @@ define([
   });
 
   homeViewModule.onChange = function () {
+    var viewDraftBoard = _.curry(setToView)('Draft');
+    var viewTeams = _.curry(setToView)('Teams');
     React.render(
         <AllPlayers 
           players={players}
+          onViewClicked={viewDraftBoard}
+          onViewTeams={viewTeams}          
           teams={teams.teamList}/>,
         home
     );

@@ -13,8 +13,10 @@ define([
     }
   };
 
-  players.playerList.push({id: 1, firstName: 'Jake', lastName: 'Brown'});
-  players.playerList.push({id: 2, firstName: 'Val', lastName: 'Brown'});
+  players.playerList.push({id: 1, firstName: 'William', lastName: 'Armstrong'});
+  players.playerList.push({id: 2, firstName: 'Deke', lastName: 'Shepard'});
+  players.playerList.push({id: 3, firstName: 'Al', lastName: 'Slayton'});
+  players.playerList.push({id: 4, firstName: 'Bean', lastName: 'Pole'});
 
   return players;
 });

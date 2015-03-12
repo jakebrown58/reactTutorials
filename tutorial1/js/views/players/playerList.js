@@ -8,11 +8,11 @@ define([
       var players = this.props.players;
       
       return (
-        <div className="player-list">
+        <div className={"playerList"}>
           {
             players.map(function (player) {
               return (
-                <div key={player.id}>
+                <div className={"player"} key={player.id}>
                   <p>
                     {player.firstName + " " + player.lastName}
                   </p>

@@ -9,7 +9,7 @@ define([
       var teams = this.props.teams;
 
       return (
-        <div id="teamList">
+        <div className={"team"} id="teamList">
           {
             teams.map(function (team) {
               return (
