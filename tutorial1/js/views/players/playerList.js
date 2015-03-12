@@ -12,10 +12,13 @@ define([
           {
             players.map(function (player) {
               return (
-                <div className={"player"} key={player.id}>
-                  <p>
-                    {player.firstName + " " + player.lastName}
-                  </p>
+                <div className={"playerRow"} key={player.id}>
+                    <div className={"playerName"}>
+                      {player.firstName + " " + player.lastName}
+                    </div>
+                    <div className={"playerSkill"}>
+                      {player.skill}
+                    </div>
                 </div>
               );
             }.bind(this))

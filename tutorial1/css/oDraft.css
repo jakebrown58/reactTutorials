@@ -90,6 +90,22 @@ body {
 	margin-left: 8px;
 }
 
-.player {
+.playerRow {
+	display:table-row;
+	margin-top: 2px;
+	margin-bottom: 2px;
 	color: #666;
+	width: 100%;
+}
+
+.playerName {
+	display:table-cell;
+	color: #666;
+	width: 150px;
+}
+
+.playerSkill {
+	display:table-cell;
+	color: #999;
+	width: 80px;
 }
