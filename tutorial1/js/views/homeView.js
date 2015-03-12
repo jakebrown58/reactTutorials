@@ -4,9 +4,8 @@ define([
   'models/players',
   'models/teams',
   'jsx!views/players/draftBoard',
-  'jsx!views/players/teamList',
-  'jsx!views/players/playersForTeam'
-], function(_, React, players, teams, DraftBoard, TeamList, PlayersForTeam){
+  'jsx!views/players/teamList'
+], function(_, React, players, teams, DraftBoard, TeamList){
 
 
   var home = document.getElementById('content');
