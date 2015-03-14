@@ -3,14 +3,13 @@ define([
   'react',
 ], function(_, React){
 
+  // Component that lists all the players passed into it.
   var PlayerList = React.createClass({
     render: function () {
-      var players = this.props.players;
-      
       return (
         <div className={"playerList"}>
           {
-            players.map(function (player) {
+            this.props.players.map(function (player) {
               return (
                 <div className={"playerRow"} key={player.id}>
                     <div className={"playerName"}>

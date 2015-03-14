@@ -7,13 +7,12 @@ define([
 
   var DraftBoard = React.createClass({
     render: function () {
-      var players = this.props.players;
       var title = "All Players";
       
       return (
         <div className={"draft"} id="draftBoard">
           <h4>{title}</h4>
-          <PlayerList players={players.playerList} />
+          <PlayerList players={this.props.players.playerList} />
         </div>
       );
     }

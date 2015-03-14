@@ -3,17 +3,16 @@ define([
   'react',
   'jsx!views/players/playersForTeam'
 ], function(_, React, PlayersForTeam){
+
+  // Component that lists all of the teams and their players.
   var TeamList = React.createClass({
     render: function () {
-      var players = this.props.players;
-      var teams = this.props.teams;
-
       return (
         <div className={"team"} id="teamList">
           {
-            teams.map(function (team) {
+            this.props.teams.map(function (team) {
               return (
-                <PlayersForTeam players={players} team={team}/>
+                <PlayersForTeam players={this.props.players} team={team}/>
               );
             }.bind(this))
           }

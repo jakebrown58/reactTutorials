@@ -3,64 +3,29 @@ define([
   'react',
   'models/players',
   'models/teams',
-  'jsx!views/players/draftBoard',
-  'jsx!views/players/teamList'
-], function(_, React, players, teams, DraftBoard, TeamList){
+  'jsx!views/mainGamePanel'
+], function(_, React, players, teams, MainGameView){
+  var mainEngine = {};
+  mainEngine.activeViewName = "Draft";
 
-
-  var home = document.getElementById('content');
-  var homeViewModule = {};
-  var activeViewName = "Draft";
-  var nextViewName = "Teams";
-
-  var setToView = function(viewName) {
+  mainEngine.setToView = function(viewName) {
     return function() {
-      activeViewName = viewName;
-      homeViewModule.onChange();
+      mainEngine.activeViewName = viewName;
+      mainEngine.onChange();
     }
   };
 
-  var AllPlayers = React.createClass({
-
-    render: function () {
-      var players = this.props.players;
-      var teams = this.props.teams;
-      var view = null;
-
-      if(activeViewName === "Draft") {
-        view = <DraftBoard players={players}/>
-      }
-      if(activeViewName === "Teams") {
-        view = <TeamList players={players} teams={teams}/>;
-      }
-
-      return (
-        <div className={"home"} id="allPlayers">
-          <div className={"mainMenu"}>
-            <button className={"mainMenuItem"} onClick={this.props.onViewClicked}>Draft</button>
-            <button className={"mainMenuItem"} onClick={this.props.onViewTeams}>Teams</button>
-          </div>
-          <section className={"main"} id="main">
-            {view}
-          </section>
-        </div>
-      );
-    }
-  });
-
-  homeViewModule.onChange = function () {
-    var viewDraftBoard = setToView('Draft');
-    var viewTeams = setToView('Teams');
+  mainEngine.onChange = function () {
     React.render(
-        <AllPlayers 
+        <MainGameView 
           players={players}
-          onViewClicked={viewDraftBoard}
-          onViewTeams={viewTeams}          
+          activeViewName={this.activeViewName}
+          onViewClicked={this.setToView('Draft')}
+          onViewTeams={this.setToView('Teams')}          
           teams={teams.teamList}/>,
-        home
+        document.getElementById('content')
     );
   };
 
-  homeViewModule.onChange();
-
+  mainEngine.onChange();
 });
