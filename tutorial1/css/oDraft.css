@@ -88,6 +88,7 @@ body {
 
 .playerList {
 	margin-left: 8px;
+	display:table;
 }
 
 .playerRow {
@@ -96,6 +97,13 @@ body {
 	margin-bottom: 2px;
 	color: #666;
 	width: 100%;
+}
+
+.playerAction {
+	display:table-cell;
+	color: #666;
+	background-color: #CCC;
+	cursor: pointer; cursor: hand;
 }
 
 .playerName {
@@ -107,5 +115,6 @@ body {
 .playerSkill {
 	display:table-cell;
 	color: #999;
-	width: 80px;
+	width: 90px;
+	padding: 2px;
 }

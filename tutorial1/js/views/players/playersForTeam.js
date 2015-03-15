@@ -8,11 +8,12 @@ define([
   var PlayersForTeam = React.createClass({
     render: function () {
       var playersForThisTeam = this.props.players.getPlayerByTeam(this.props.team);
+      var playerAction = null;
 
       return (
         <div id="draftBoard">
           <h4>{this.props.team.teamName}</h4>
-          <PlayerList players={playersForThisTeam} />
+          <PlayerList players={playersForThisTeam} onAction={playerAction}/>
         </div>
       );
     }
