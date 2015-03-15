@@ -1,23 +1,20 @@
 define([
   'lodash',
   'react',
-], function(_, React){
+  'jsx!views/players/playerDetail'
+], function(_, React, PlayerDetail){
 
   // Component that lists all the players passed into it.
   var PlayerList = React.createClass({
     render: function () {
+
       return (
         <div className={"playerList"}>
           {
             this.props.players.map(function (player) {
               return (
-                <div className={"playerRow"} key={player.id}>
-                    <div className={"playerName"}>
-                      {player.firstName + " " + player.lastName}
-                    </div>
-                    <div className={"playerSkill"}>
-                      {player.skill}
-                    </div>
+                <div className={"playerRow"}>
+                  <PlayerDetail player={player} onAction={this.props.onAction}/>
                 </div>
               );
             }.bind(this))

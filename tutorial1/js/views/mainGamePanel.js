@@ -5,12 +5,11 @@ define([
 ], function(React, DraftBoard, TeamList){
 
   var MainGameView = React.createClass({
-
     render: function () {
       var view = null;
 
       if(this.props.activeViewName === "Draft") {
-        view = <DraftBoard players={this.props.players}/>
+        view = <DraftBoard players={this.props.players} onPlayerAction={this.props.onDraftPlayer}/>
       }
       if(this.props.activeViewName === "Teams") {
         view = <TeamList players={this.props.players} teams={this.props.teams}/>;
