@@ -6,11 +6,12 @@ define([
   
   var DraftBoard = React.createClass({
     render: function () {
-      var title = "All Players";
+      var title = "All Players",
+        draftablePlayers = this.props.players.getDraftablePlayers(this.props.teams);
       return (
         <div className={"draft"} id="draftBoard">
           <h4>{title}</h4>
-          <PlayerList players={this.props.players.playerList} onAction={this.props.onPlayerAction} />
+          <PlayerList players={draftablePlayers} onAction={this.props.onPlayerAction} />
         </div>
       );
     }

@@ -22,6 +22,8 @@ define([
     } else {
       teams.teamList[0].players.push(player.id);
     }
+
+    mainEngine.onChange();
   };
 
   mainEngine.setToView = function(viewName) {
