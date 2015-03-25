@@ -7,7 +7,8 @@ Nothing to see here. Just playing with React.
 Tutorial 1
 ----------
 
-Playing with compositional views, and react with requires.  No interactivitiy.
+Playing with compositional views, and react with requires.  
+Limited interactivity.
 
 
 Installation
