@@ -8,15 +8,11 @@ define([
   var AllPlayers = React.createClass({
     render: function () {
       var title = "All Players";
-      
-      var onPlayerAction = function(player) {
-        alert(player.firstName);
-      };
-      
+
       return (
         <div className={"draft"} id="draftBoard">
           <h4>{title}</h4>
-          <PlayerList players={this.props.players.playerList} onAction={onPlayerAction} />
+          <PlayerList players={this.props.players.playerList} />
         </div>
       );
     }

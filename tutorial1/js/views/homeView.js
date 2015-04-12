@@ -1,27 +1,16 @@
 define([
   'lodash',
   'react',
+  'engine/draftEngine',
   'models/players',
   'models/teams',
   'jsx!views/mainGamePanel'
-], function(_, React, players, teams, MainGameView){
+], function(_, React, draftEngine, players, teams, MainGameView){
   var mainEngine = {};
   mainEngine.activeViewName = "Draft";
 
   mainEngine.draftPlayer = function(player) {
-    var t = _.filter(teams.teamList, function(team) {
-      return _.some(team.players, function(id) {
-        return id === player.id;
-      });
-    });
-
-    if(t.length > 0) {
-      _.remove(t[0].players, function(id) {
-        return id === player.id;
-      });
-    } else {
-      teams.teamList[0].players.push(player.id);
-    }
+    draftEngine.togglePlayerAffiliationWithTeam(teams, player);
 
     mainEngine.onChange();
   };
