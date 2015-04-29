@@ -28,7 +28,8 @@ var teams = {
     })
   },
   getHumanControlledTeam: function() {
-    return teams.teamList[this.humanTeamId];
+    var targetId = this.humanTeamId;
+    return _.first(this.teamList, function(team) { return team.id === targetId;});
   }
 };
 
