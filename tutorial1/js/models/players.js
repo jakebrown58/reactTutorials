@@ -10,14 +10,11 @@ if(typeof app === 'undefined') {
 
 
 define([
-  'lodash'
-], function(_){
+  'lodash',
+  'engine/playerGenerator'
+], function(_, playerGenerator){
   var players = app.PlayerModule;
-  players.playerList.push({id: 1, skill: "Star", firstName: 'William', lastName: 'Armstrong'});
-  players.playerList.push({id: 2, skill: "Star", firstName: 'Deke', lastName: 'Shepard'});
-  players.playerList.push({id: 3, skill: "Role-player", firstName: 'Al', lastName: 'Slayton'});
-  players.playerList.push({id: 4, skill: "Journeyman", firstName: 'Bean', lastName: 'Pole'});
-
+  _.each(playerGenerator.createPlayers(4), function(x) {players.playerList.push(x)});
   return players;
 });
 

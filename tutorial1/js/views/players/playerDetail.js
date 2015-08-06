@@ -25,7 +25,7 @@ define([
               {player.firstName + " " + player.lastName}
             </div>
             <div className={"playerSkill"}>
-              {player.skill}
+              {player.rating}
             </div>
             <div className={"playerSkill"}>
             {bonus}

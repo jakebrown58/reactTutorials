@@ -19,7 +19,7 @@ define([
 
 var teams = {
   teamList: [],
-  humanTeamId: 0,
+  humanTeamId: 1,
   getTheTeamThatAPlayerPlaysFor: function(player) {
     return  _.filter(this.teamList, function(team) {
       return _.some(team.players, function(id) {
@@ -29,7 +29,7 @@ var teams = {
   },
   getHumanControlledTeam: function() {
     var targetId = this.humanTeamId;
-    return _.first(this.teamList, function(team) { return team.id === targetId;});
+    return _.first(this.teamList, function(team) { return team.id === targetId;})[0];
   }
 };
 
