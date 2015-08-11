@@ -2,7 +2,7 @@ define([
   'lodash',
   'react',
   'jsx!views/players/playerList'
-], function(_, React, PlayerList){
+], function(_, React, PlayerList) {
   
   var DraftBoard = React.createClass({
     render: function () {

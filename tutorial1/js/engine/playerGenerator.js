@@ -35,16 +35,20 @@ define([
   }
 
   app.PlayerGenerator = {
+    seedId: 1
   };
 
   app.PlayerGenerator.createPlayers = function(numberOfPlayers) {
-    var players = [];
-    var n = nameMaker;
-    players.push({id: 1, rating: "Potential all-star", firstName: n.getFirstName(), lastName: n.getLastName()});
-    players.push({id: 2, rating: "Potential all-star", firstName: n.getFirstName(), lastName: n.getLastName()});
-    players.push({id: 3, rating: "Role-player", firstName: n.getFirstName(), lastName: n.getLastName()});
-    players.push({id: 4, rating: "Journeyman", firstName: n.getFirstName(), lastName: n.getLastName()});
+    var players = [],
+      me = this;
+    _.times(numberOfPlayers, function() { players.push(me.createPlayer())} );
     return players;
+  };
+
+  app.PlayerGenerator.createPlayer = function(position, archtype) {
+    var n = nameMaker;
+    this.seedId++;
+    return {id: this.seedId, rating: "Potential all-star", firstName: n.getFirstName(), lastName: n.getLastName()};
   };
 
 
