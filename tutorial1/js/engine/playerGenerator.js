@@ -53,9 +53,9 @@ define([
 
   app.PlayerGenerator.createPlayer = function(position, archtype) {
     var n = nameMaker,
-      rating = app.StatGenerator.getStats(this.initialPlayerDistribution);
+      stats = app.StatGenerator.getStats(this.initialPlayerDistribution);
     this.seedId++;
-    return {id: this.seedId, rating: rating, firstName: n.getFirstName(), lastName: n.getLastName()};
+    return {id: this.seedId, rating: stats.rating, skill: stats.skill, firstName: n.getFirstName(), lastName: n.getLastName()};
   };
 }())
 

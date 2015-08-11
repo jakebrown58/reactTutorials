@@ -28,6 +28,9 @@ define([
               {player.rating}
             </div>
             <div className={"playerSkill"}>
+              {player.skill}
+            </div>
+            <div className={"playerSkill"}>
             {bonus}
             </div>
         </div>

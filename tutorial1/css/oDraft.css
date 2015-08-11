@@ -99,11 +99,28 @@ body {
 	width: 100%;
 }
 
+.mainMenuItem {
+	cursor:pointer;
+	border-style: solid;
+	border-color: #666;
+}
+
+.mainMenuItem:hover {
+	color: #000;
+	background-color: #FFF;
+	border-style: solid;
+	border-color: #000;
+}
+
 .playerAction {
 	display:table-cell;
 	color: #666;
 	background-color: #CCC;
-	cursor: pointer; cursor: hand;
+	cursor: pointer;
+}
+
+.playerAction:hover {
+    background-color: yellow;
 }
 
 .playerName {
