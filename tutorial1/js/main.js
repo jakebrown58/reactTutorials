@@ -4,7 +4,6 @@ require.config({
     react: 'libs/react/react-with-addons.min',
     JSXTransformer: 'libs/react/JSXTransformer',
     jsx: "libs/react/plugins/JSX-requires"
-
   }
 });
 
