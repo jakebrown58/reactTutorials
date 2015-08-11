@@ -10,8 +10,9 @@ if(typeof app === 'undefined') {
 
 define([
   'lodash',
-  'engine/ptrees'
-], function(_, ptrees){
+  'engine/ptrees',
+  'engine/statGenerator'
+], function(_, ptrees, statGenerator){
     var playerGenerator = app.PlayerGenerator;
     return playerGenerator;
 });
@@ -35,18 +36,12 @@ define([
     return collection[Math.floor(Math.random() * collection.length)];
   }
 
-  var statGen = {};
-  statGen.distribution = {
-    first: { good: 1 },
-    good: {star: 1, veteran: 2, roleplayer: 3, scrub: 2, wannabe: 1}
-  };
-  
-  statGen.getStats = function() {
-    return app.ProbabilityResolver.resolve(statGen.distribution);
-  }
-
   app.PlayerGenerator = {
-    seedId: 1
+    seedId: 1,
+    initialPlayerDistribution:   {
+      first: { good: 1 },
+      good: {star: 1, veteran: 2, roleplayer: 3, scrub: 2, wannabe: 1}
+    }
   };
 
   app.PlayerGenerator.createPlayers = function(numberOfPlayers) {
@@ -57,12 +52,11 @@ define([
   };
 
   app.PlayerGenerator.createPlayer = function(position, archtype) {
-    var n = nameMaker;
+    var n = nameMaker,
+      rating = app.StatGenerator.getStats(this.initialPlayerDistribution);
     this.seedId++;
-    return {id: this.seedId, rating: statGen.getStats(), firstName: n.getFirstName(), lastName: n.getLastName()};
+    return {id: this.seedId, rating: rating, firstName: n.getFirstName(), lastName: n.getLastName()};
   };
-
-
 }())
 
 
