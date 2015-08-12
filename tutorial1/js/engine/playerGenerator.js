@@ -48,7 +48,7 @@ define([
     var players = [],
       me = this;
     _.times(numberOfPlayers, function() { players.push(me.createPlayer())} );
-    return players;
+    return _.sortByOrder(players, ['skill', 'lastName'], ['desc', 'asc']);
   };
 
   app.PlayerGenerator.createPlayer = function(position, archtype) {
