@@ -20,27 +20,38 @@ define([
   'use strict';
   app.StatGenerator = {};
 
-  app.StatGenerator.getStats = function(distribution) {
+  app.StatGenerator.getStats = function(ratingDistribution) {
     var stats = {},
-      distributionMap = {
-        first: {ok: 1},
-        ok: { '4': 1, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, '10': 0}
-      };
+      statsDistribution;
 
-    stats.rating = app.ProbabilityResolver.resolve(distribution);
+    stats.rating = app.ProbabilityResolver.resolve(ratingDistribution);
+    statsDistribution = this.buildStatDistribution(stats.rating);
+    stats.skills = [];
+    _.times(5, function() { stats.skills.push(app.ProbabilityResolver.resolve(statsDistribution))});
 
-    if(stats.rating === 'star') {
-      distributionMap = app.ProbabilityResolver.modify(distributionMap, { ok_: { '8': 1, '9': 2, '10': 1}});
-    }
-    if(stats.rating === 'scrub') {
-      distributionMap = app.ProbabilityResolver.modify(distributionMap, { ok_: { '3': 1, '4': 4, '5': 4, '6': 2, '7': 1}});
-    }    
-    if(stats.rating === 'wannabe') {
-      distributionMap = app.ProbabilityResolver.modify(distributionMap, { ok_: { '3': 1, '4': 1, '5': 1}});
-    }
 
-    stats.skill = app.ProbabilityResolver.resolve(distributionMap);
+    
+    stats.skill = _.round(_.sum(stats.skills) / (stats.skills.length), 2);
     return stats;
+  }
+
+  app.StatGenerator.buildStatDistribution = function(rating) {
+   var dist = {
+      first: {ok: 1},
+      ok: { '4': 1, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, '10': 0}
+    };
+
+    if(rating === 'star') {
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '8': 1, '9': 2, '10': 1}});
+    }
+    if(rating === 'scrub') {
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 4, '5': 4, '6': 2, '7': 1}});
+    }    
+    if(rating === 'wannabe') {
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 1, '5': 1}});
+    }
+
+    return dist;
   }
 }())
 
