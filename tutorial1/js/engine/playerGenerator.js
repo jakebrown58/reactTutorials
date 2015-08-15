@@ -40,7 +40,7 @@ define([
     seedId: 1,
     initialPlayerDistribution:   {
       first: { good: 1 },
-      good: {star: 1, veteran: 2, roleplayer: 3, scrub: 2, wannabe: 1}
+      good: {a: 2, b: 3, c: 4, d: 3, e: 1}
     }
   };
 

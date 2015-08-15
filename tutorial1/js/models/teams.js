@@ -29,7 +29,7 @@ var teams = {
   },
   getHumanControlledTeam: function() {
     var targetId = this.humanTeamId;
-    return _.first(this.teamList, function(team) { return team.id === targetId;})[0];
+    return _.first(this.teamList, function(team) { return team.id === targetId;});
   }
 };
 
