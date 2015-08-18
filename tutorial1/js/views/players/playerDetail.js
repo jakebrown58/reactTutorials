@@ -31,6 +31,12 @@ define([
               {player.skill}
             </div>
             <div className={"playerSkill"}>
+              {player.skills[0]}
+            </div>
+            <div className={"playerSkill"}>
+              {player.skills[1]}
+            </div>            
+            <div className={"playerSkill"}>
             {bonus}
             </div>
         </div>

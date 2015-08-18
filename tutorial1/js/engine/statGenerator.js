@@ -21,20 +21,20 @@ define([
   app.StatGenerator = {};
 
   app.StatGenerator.rankMap = {a: 'star', b: 'regular', c: 'roleplayer', d: 'scrub', e: 'wannabe'};
+  app.StatGenerator.skillMap = {speed: 0, throwing: 1, catching: 2, tackling: 3, blocking: 4, instincts: 5};
 
   app.StatGenerator.getStats = function(ratingDistribution) {
     var stats = {},
+      skillCount = Object.keys(app.StatGenerator.skillMap).length,
       statsDistribution;
 
     stats.rating = app.ProbabilityResolver.resolve(ratingDistribution);
     statsDistribution = this.buildStatDistribution(stats.rating);
     stats.rating = this.rankMap[stats.rating];
     stats.skills = [];
-    _.times(5, function() { stats.skills.push(app.ProbabilityResolver.resolve(statsDistribution))});
-
-
-    
-    stats.skill = _.round(_.sum(stats.skills) / (stats.skills.length), 2);
+    _.times(skillCount, function() { stats.skills.push(app.ProbabilityResolver.resolve(statsDistribution))});
+   
+    stats.skill = _.round(_.sum(stats.skills) / (stats.skills.length), 1);
     return stats;
   }
 

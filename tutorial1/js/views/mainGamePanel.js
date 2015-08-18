@@ -10,7 +10,7 @@ define([
         me = this;
 
       if(this.props.activeViewName === "Draft") {
-        view = <DraftBoard players={this.props.players} teams={this.props.teams} onPlayerAction={this.props.onDraftPlayer}/>
+        view = <DraftBoard players={this.props.players} teams={this.props.teams} sortBy={this.props.draftSort} onSortAction={this.props.onSortToggle} onPlayerAction={this.props.onDraftPlayer}/>
       }
       if(this.props.activeViewName === "Teams") {
         view = <TeamList players={this.props.players} teams={this.props.teams}/>;

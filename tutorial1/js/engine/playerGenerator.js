@@ -55,7 +55,7 @@ define([
     var n = nameMaker,
       stats = app.StatGenerator.getStats(this.initialPlayerDistribution);
     this.seedId++;
-    return {id: this.seedId, rating: stats.rating, skill: stats.skill, firstName: n.getFirstName(), lastName: n.getLastName()};
+    return {id: this.seedId, rating: stats.rating, skill: stats.skill, skills: stats.skills, firstName: n.getFirstName(), lastName: n.getLastName()};
   };
 }())
 

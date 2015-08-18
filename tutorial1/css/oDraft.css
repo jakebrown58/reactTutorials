@@ -132,6 +132,7 @@ body {
 .playerSkill {
 	display:table-cell;
 	color: #999;
-	width: 120px;
+	width: 90px;
+	text-align:: right;
 	padding: 2px;
 }
