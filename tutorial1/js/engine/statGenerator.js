@@ -45,16 +45,16 @@ define([
     };
 
     if(rating === 'a') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '8': 1, '9': 2, '10': 1}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '6': 1, '7': 1, '8': 2, '9': 3, '10': 1}});
     }
     if(rating === 'b') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '5': 2, '6': 4, '7': 4, '8': 3, '9': 2}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '5': 2, '6': 4, '7': 4, '8': 3, '9': 2, '10': 1}});
     }
     if(rating === 'c') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '5': 4, '6': 4, '7': 3, '8': 1, '9': 1}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '5': 4, '6': 5, '7': 3, '8': 2, '9': 1}});
     }
     if(rating === 'd') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 4, '5': 4, '6': 2, '7': 1}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 5, '5': 5, '6': 3, '7': 2, '8': 1}});
     }
     if(rating === 'e') {
       dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 1, '5': 1}});

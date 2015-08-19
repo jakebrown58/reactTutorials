@@ -136,3 +136,11 @@ body {
 	text-align:: right;
 	padding: 2px;
 }
+
+.playerSkillValue {
+	display:table-cell;
+	color: #999;
+	width: 60px;
+	text-align:: right;
+	padding: 1px;
+}

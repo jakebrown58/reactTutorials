@@ -18,7 +18,12 @@ define([
       var bonus = this.props.onAction ? 
         <button className={"playerAction"} onClick={onPlayerActionFn}>Draft</button> :
         <div></div>;
-      
+
+      var statCells = [];
+      _.each(player.skills, function(skill) {
+        statCells.push(<div className={"playerSkillValue"}>{skill}</div>);
+      });
+
       return (
         <div className="playerRow" key={player.id}>
             <div className={"playerName"}>
@@ -30,12 +35,7 @@ define([
             <div className={"playerSkill"}>
               {player.skill}
             </div>
-            <div className={"playerSkill"}>
-              {player.skills[0]}
-            </div>
-            <div className={"playerSkill"}>
-              {player.skills[1]}
-            </div>            
+            {statCells}    
             <div className={"playerSkill"}>
             {bonus}
             </div>
