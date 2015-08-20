@@ -11,8 +11,10 @@ define([
   'lodash'
 ], function(_){
 
-  teams.teamList.push({id: 1, teamName: 'Cannons', players: [1]});
-  teams.teamList.push({id: 2, teamName: 'Rockets', players: [2]});
+  teams.teamList.push({id: 1, teamName: 'Columbus Cannons', players: []});
+  teams.teamList.push({id: 2, teamName: 'Rochester Rockets', players: []});
+  teams.teamList.push({id: 2, teamName: 'Omaha Oligarchs', players: []});
+  teams.teamList.push({id: 2, teamName: 'Lexington Lizards', players: []});
 
   return teams;
 });

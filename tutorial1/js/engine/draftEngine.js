@@ -21,6 +21,12 @@ define([
   app.DraftEngine = {
   };
 
+  app.DraftEngine.draftLog = [];
+
+  app.DraftEngine.logPick = function(team, player) {
+    app.DraftEngine.draftLog.push(team.name + ' selects ' + player.position + ' - ' + player.name + ' - ' + player.id);
+  }
+
   app.DraftEngine.togglePlayerAffiliationWithTeam = function(teams, player, team) { 
     var t = teams.getTheTeamThatAPlayerPlaysFor(player),
       draftTeam = team || teams.getHumanControlledTeam();
@@ -33,6 +39,7 @@ define([
       return 'remove';
     } else {
       draftTeam.players.push(player.id);
+      this.logPick(draftTeam, player);
       return 'add';
     }
   };

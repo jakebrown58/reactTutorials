@@ -29,8 +29,6 @@ define([
     var skillSort = 'skill';
     mainEngine.draftSortIndex++;
 
-    window.console.log(mainEngine.draftSortIndex);
-
     if(mainEngine.draftSortIndex >= _.keys(statGen.skillMap).length) {
       mainEngine.draftSortIndex = -1;
     }

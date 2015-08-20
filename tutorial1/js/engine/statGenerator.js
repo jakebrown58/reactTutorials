@@ -21,7 +21,31 @@ define([
   app.StatGenerator = {};
 
   app.StatGenerator.rankMap = {a: 'star', b: 'regular', c: 'roleplayer', d: 'scrub', e: 'wannabe'};
-  app.StatGenerator.skillMap = {speed: 0, throwing: 1, catching: 2, tackling: 3, blocking: 4, instincts: 5};
+  app.StatGenerator.skillMap = {speed: 0, throwing: 1, catching: 2, tackling: 3, blocking: 4, dodging: 5, instincts: 6};
+  app.StatGenerator.offensivePositions = {
+    wr: [2,0,5,6],
+    rb: [5,0,2,6,4],
+    qb: [6,1,5,0],
+    ol: [4,6,0],
+    te: [2,4,0,6]
+  };
+  app.StatGenerator.defensivePositions = {
+    dl: [4,3,6],
+    ilb: [3,6,4,0,2],
+    olb: [3,0,5,6,4],
+    cb: [5,0,6,2],
+    s: [6,0,3,2]
+  };
+
+  app.StatGenerator.oPosDist = {
+    first: {ok: 1},
+    ok: { 'qb': 2, 'rb': 2, 'wr': 2, 'ol': 5, 'te': 1}
+  };
+
+  app.StatGenerator.dPosDist = {
+    first: {ok: 1},
+    ok: { 'dl': 4, 'ilb': 2, 'olb': 2, 'cb': 2, 's': 2}
+  };
 
   app.StatGenerator.getStats = function(ratingDistribution) {
     var stats = {},
@@ -34,8 +58,37 @@ define([
     stats.skills = [];
     _.times(skillCount, function() { stats.skills.push(app.ProbabilityResolver.resolve(statsDistribution))});
    
-    stats.skill = _.round(_.sum(stats.skills) / (stats.skills.length), 1);
+    //stats.skill =  //_.round(_.sum(stats.skills) / (stats.skills.length), 1);
+
+
+    stats.side = this.getSide();
+    stats.position = this.getPosition(stats);
+    stats.skill = this.assignOverallSkill(stats);
     return stats;
+  }
+
+  app.StatGenerator.assignOverallSkill = function(stats) {
+    var side = stats.side === 'o' ? app.StatGenerator.offensivePositions : app.StatGenerator.defensivePositions,
+      keySkills = side[stats.position],
+      sum  = 0;
+
+    _.each(keySkills, function(skill){
+      sum += Math.round(stats.skills[skill], 0);
+    });
+
+    return _.round(sum / (keySkills.length), 1);
+  }
+
+
+  app.StatGenerator.getSide = function(skills) {
+    return _.random(0, 1) === 0 ? 'o' : 'd';
+  }
+
+  app.StatGenerator.getPosition = function(stats) {
+    var side = stats.side === 'o' ? app.StatGenerator.offensivePositions : app.StatGenerator.defensivePositions,
+      dist = stats.side === 'o' ? app.StatGenerator.oPosDist : app.StatGenerator.dPosDist;
+
+    return app.ProbabilityResolver.resolve(dist);
   }
 
   app.StatGenerator.buildStatDistribution = function(rating) {

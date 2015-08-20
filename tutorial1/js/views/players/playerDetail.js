@@ -20,9 +20,9 @@ define([
         <div></div>;
 
       var statCells = [];
-      _.each(player.skills, function(skill) {
-        statCells.push(<div className={"playerSkillValue"}>{skill}</div>);
-      });
+      // _.each(player.skills, function(skill) {
+      //   statCells.push(<div className={"playerSkillValue"}>{skill}</div>);
+      // });
 
       return (
         <div className="playerRow" key={player.id}>
@@ -32,6 +32,9 @@ define([
             <div className={"playerSkill"}>
               {player.rating}
             </div>
+            <div className={"playerSkill"}>
+              {player.position}
+            </div>            
             <div className={"playerSkill"}>
               {player.skill}
             </div>
