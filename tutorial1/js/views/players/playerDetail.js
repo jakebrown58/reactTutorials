@@ -19,10 +19,10 @@ define([
         <button className={"playerAction"} onClick={onPlayerActionFn}>Draft</button> :
         <div></div>;
 
-      var statCells = [];
-      // _.each(player.skills, function(skill) {
-      //   statCells.push(<div className={"playerSkillValue"}>{skill}</div>);
+      // var statCells = _.map(player.skills, function(skill) {
+      //   return (<div className={"playerSkillValue"}>{skill}</div>);
       // });
+      var statCells = [];
 
       return (
         <div className="playerRow" key={player.id}>
