@@ -12,7 +12,7 @@ define([
       return (
         <div className={"draft"} id="draftBoard">
           <h4>{title}</h4>
-          <PlayerList players={this.props.players.playerList} />
+          <PlayerList players={this.props.players.playerList} columnFilter={this.props.columnFilter} />
         </div>
       );
     }

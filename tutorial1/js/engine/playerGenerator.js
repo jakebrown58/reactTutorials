@@ -21,8 +21,8 @@ define([
   'use strict';
 
   var nameMaker = {};
-  nameMaker.firstNames = ['Andy', 'Brad', 'Chet', 'Doug', 'Earl', 'Frank', 'Gabe', 'Hal', 'Ian', 'Jake', 'Lou', 'Mike', 'Ned'];
-  nameMaker.lastNames = ['Anderson', 'Brown', 'Craven', 'Duphrane', 'Ebbits', 'Freemont', 'Garfield', 'Salerno'];
+  nameMaker.firstNames = ['Andy', 'Brad', 'Chet', 'Doug', 'Earl', 'Frank', 'Gabe', 'Hal', 'Ian', 'Jake', 'Lou', 'Mike', 'Ned', 'Pete', 'Rick', 'Stan', 'Ted', 'Vince', 'Will'];
+  nameMaker.lastNames = ['Anderson', 'Brown', 'Craven', 'Duphrane', 'Ebbits', 'Freemont', 'Garfield', 'Harrison', 'Ivanov', 'Jenkins', 'Kirkland', 'Lucas', 'Salerno'];
 
   nameMaker.getFirstName = function() {
     return this.getName(this.firstNames);

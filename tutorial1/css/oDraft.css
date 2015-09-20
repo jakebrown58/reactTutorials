@@ -112,6 +112,19 @@ body {
 	border-color: #000;
 }
 
+.listAction { 
+	margin-top: 2px;
+	margin-bottom: 2px;
+	display:table-cell;
+	color: #666;
+	background-color: #CCC;
+	cursor: pointer;
+}
+
+.listAction:hover {
+    background-color: yellow;
+}
+
 .playerAction {
 	display:table-cell;
 	color: #666;

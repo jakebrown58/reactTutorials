@@ -13,8 +13,8 @@ define([
 
   teams.teamList.push({id: 1, teamName: 'Columbus Cannons', players: []});
   teams.teamList.push({id: 2, teamName: 'Rochester Rockets', players: []});
-  teams.teamList.push({id: 2, teamName: 'Omaha Oligarchs', players: []});
-  teams.teamList.push({id: 2, teamName: 'Lexington Lizards', players: []});
+  teams.teamList.push({id: 3, teamName: 'Omaha Oligarchs', players: []});
+  teams.teamList.push({id: 4, teamName: 'Lexington Lizards', players: []});
 
   return teams;
 });
@@ -28,6 +28,10 @@ var teams = {
         return id === player.id;
       });
     })
+  },
+  getAITeams: function() {
+    var me = this;
+    return _.filter(this.teamList, function(team) { return team.id !== me.humanTeamId;});
   },
   getHumanControlledTeam: function() {
     var targetId = this.humanTeamId;

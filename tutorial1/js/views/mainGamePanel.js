@@ -10,10 +10,13 @@ define([
         me = this;
 
       if(this.props.activeViewName === "Draft") {
-        view = <DraftBoard players={this.props.players} teams={this.props.teams} sortBy={this.props.draftSort} onSortAction={this.props.onSortToggle} onPlayerAction={this.props.onDraftPlayer}/>
+        view = <DraftBoard players={this.props.players} teams={this.props.teams} filterBy={this.props.filterBy} filterByFn={this.props.filterByFn} sortBy={this.props.draftSort} onFilterAction={this.props.onFilterToggle} onSortAction={this.props.onSortToggle} onPlayerAction={this.props.onDraftPlayer}/>
       }
       if(this.props.activeViewName === "Teams") {
-        view = <TeamList players={this.props.players} teams={this.props.teams}/>;
+        view = <TeamList players={this.props.players} teams={this.props.teams} sortBy={this.props.draftSort} onSortAction={this.props.onSortToggle} onPlayerAction={this.props.onReleasePlayer}/>;
+      }
+      if(this.props.activeViewName === "Draft History") {
+        view = <DraftHistory players={this.props.players} teams={this.props.teams} sortBy={this.props.draftSort} onSortAction={this.props.onSortToggle} onPlayerAction={this.props.onDraftPlayer}/>
       }
 
       return (

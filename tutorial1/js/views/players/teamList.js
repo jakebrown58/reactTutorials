@@ -9,10 +9,11 @@ define([
     render: function () {
       return (
         <div className={"team"} id="teamList">
+        <button className={"playerAction"} onClick={this.props.onSortAction}>Sort: {this.props.sortBy} </button>
           {
             this.props.teams.map(function (team) {
               return (
-                <PlayersForTeam players={this.props.players} team={team}/>
+                <PlayersForTeam players={this.props.players} team={team} columnFilter={[this.props.sortBy]} onAction={this.props.onPlayerAction}/>
               );
             }.bind(this))
           }

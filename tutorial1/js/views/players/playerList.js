@@ -10,12 +10,11 @@ define([
 
       return (
         <div className={"playerList"}>
+          <PlayerDetail header={true} columnFilter={this.props.columnFilter} onAction={this.props.onAction}/>
           {
             this.props.players.map(function (player) {
               return (
-                <div className={"playerRow"}>
-                  <PlayerDetail player={player} onAction={this.props.onAction}/>
-                </div>
+                  <PlayerDetail player={player} columnFilter={this.props.columnFilter} onAction={this.props.onAction}/>
               );
             }.bind(this))
           }

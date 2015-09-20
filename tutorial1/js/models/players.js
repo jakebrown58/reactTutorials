@@ -14,7 +14,7 @@ define([
   'engine/playerGenerator'
 ], function(_, playerGenerator){
   var players = app.PlayerModule;
-  _.each(playerGenerator.createPlayers(40), function(x) {players.playerList.push(x)});
+  _.each(playerGenerator.createPlayers(60), function(x) {players.playerList.push(x)});
   return players;
 });
 
