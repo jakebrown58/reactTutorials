@@ -65,24 +65,15 @@ define([
     return newRank;
   };
 
-  app.StatGenerator.oPosDist = {
-    first: {ok: 1},
-    ok: { 'qb': 2, 'rb': 2, 'wr': 2, 'ol': 5, 'te': 1}
-  };
-
-  app.StatGenerator.dPosDist = {
-    first: {ok: 1},
-    ok: { 'dl': 4, 'ilb': 2, 'olb': 2, 'cb': 2, 's': 2}
-  };
-
-  app.StatGenerator.getStats = function(ratingDistribution) {
+  app.StatGenerator.getStats = function(ratingDistribution, oPosDist, dPosDist, forcedStats) {
     var stats = {},
       statsDistribution;
-
+    app.StatGenerator.oPosDist = oPosDist;
+    app.StatGenerator.dPosDist = dPosDist;
 
     stats.rating = app.ProbabilityResolver.resolve(ratingDistribution);  // rating is | a-e |
-    stats.side = this.getSide();
-    stats.position = this.getPosition(stats);
+    stats.side = forcedStats === undefined ? this.getSide() : forcedStats.side;
+    stats.position = forcedStats === undefined ? this.getPosition(stats) : forcedStats.position;
     stats.skills = this.assignSkills(app.StatGenerator.skillMap, stats);
     stats.rating = this.rankMap[stats.rating];
     stats.skill = this.assignOverallSkill(stats);
