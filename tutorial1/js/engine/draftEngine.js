@@ -50,7 +50,6 @@ define([
       me = this;
     _.each(aiTeams, function(t){
       var available = players.getDraftablePlayers(teams.teamList);
-      console.log("a:" + available.length);
       me.togglePlayerAffiliationWithTeam(teams, available[0], t);
     });
   };

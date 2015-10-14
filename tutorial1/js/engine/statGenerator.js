@@ -132,13 +132,13 @@ define([
       dist = app.ProbabilityResolver.modify(dist, { ok_: { '5': 2, '6': 4, '7': 4, '8': 3, '9': 2, '10': 1}});
     }
     if(rating === 'c') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '5': 4, '6': 5, '7': 3, '8': 2, '9': 1}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '4': 2, '5': 4, '6': 5, '7': 3, '8': 2, '9': 1}});
     }
     if(rating === 'd') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 5, '5': 5, '6': 3, '7': 2, '8': 1}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 3, '4': 5, '5': 5, '6': 3, '7': 1, '8': 1}});
     }
     if(rating === 'e') {
-      dist = app.ProbabilityResolver.modify(dist, { ok_: { '3': 1, '4': 1, '5': 1}});
+      dist = app.ProbabilityResolver.modify(dist, { ok_: { '2': 1, '3': 2, '4': 2, '5': 1}});
     }
 
     return dist;
