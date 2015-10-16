@@ -75,6 +75,7 @@ define([
 
     if(oPlay === 'handoff') {
       var oScore = 0;
+      var ballCarrier = oByP['rb'][0];
       _.each(oByP['ol'], function(player) {
         oScore += Math.abs(player.stats.skills[4] + Math.random() * 2); // blocking
       });
@@ -85,6 +86,22 @@ define([
       });
 
       var blockBonus = oScore - dScore;
+
+      if(blockBonus < -2) {
+        // defense has a free blocker at the line and can try to disrupt the play.
+        var x = {};
+        _.each(dByP['dl'], function(player) {
+          x[player.id] = player.stat.skills[4];
+        };
+
+        var freeDefenderDist = { first: {ok: 1},
+          ok: x
+        };
+
+        var playerId = app.ProbabilityResolver.resolve(ratingDistribution);
+        var freeDefender = _.find(defensePlayers, function(player) { return player.id === playerId});
+        
+      }
     }
   };
 
