@@ -24,7 +24,7 @@ define([
 
   app.GamePlayer.playGame = function(homeTeam, awayTeam) {
     var gameState = {
-      teams: [hometeam, awayTeam],
+      teams: [homeTeam, awayTeam],
       possession: awayTeam,
       los: [20],
       score: [0, 0],
@@ -35,10 +35,13 @@ define([
     while(gameState.clock[1] > 0) {
       this.resolvePossession(gameState);
     }
+
+    return gameState;
   };
 
   app.GamePlayer.resolvePossession = function(gameState) {
-    var offense = teams[0] === gameState.possession ? teams[0] : teams[1],
+    var teams = gameState.teams, 
+      offense = teams[0] === gameState.possession ? teams[0] : teams[1],
       defense = offense === teams[1] ? teams[0] : teams[1],
       possessionState = {
         offense: offense,
@@ -47,12 +50,22 @@ define([
         possesionStats: {}
       };
 
-    while(possessionState === '?') {
-      possessionState = this.resovePlay(gameState, possessionState);
+    while(possessionState.result === '?') {
+      possessionState = this.resolvePlay(gameState, possessionState);
     }
+
+    gameState.clock[1]--;
+
+    return gameState;
   };
 
   app.GamePlayer.resolvePlay = function(gameState, possessionState) {
+    this.resolvePlayX(gameState, possessionState);
+    possessionState.result = 'ok';
+    return possessionState;
+  }
+
+  app.GamePlayer.resolvePlayX = function(gameState, possessionState) {
     var playClock = 0,
       offensePlayers = possessionState.offense.players,
       defensePlayers = possessionState.defense.players;
@@ -91,8 +104,8 @@ define([
         // defense has a free blocker at the line and can try to disrupt the play.
         var x = {};
         _.each(dByP['dl'], function(player) {
-          x[player.id] = player.stat.skills[4];
-        };
+          x[player.id] = player.stats.skills[4];
+        });
 
         var freeDefenderDist = { first: {ok: 1},
           ok: x
@@ -104,7 +117,6 @@ define([
       }
     }
   };
-
 }())
 
 
