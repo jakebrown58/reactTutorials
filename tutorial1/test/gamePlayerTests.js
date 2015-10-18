@@ -8,15 +8,23 @@ var data = {
     teamA: {
         name: 'A',
         players: [
-            {position: 'dl', stats: {skills: [0,0,0,0,0]}}, 
-            {position: 'olb', stats: {skills: [0,0,0,0,0]}}
+            {playerId: 1, position: 'dl', stats: {skills: [0,0,0,0,1]}}, 
+            {playerId: 2, position: 'dl', stats: {skills: [0,0,0,0,2]}}, 
+            {playerId: 3, position: 'dl', stats: {skills: [0,0,0,0,3]}}, 
+            {playerId: 4, position: 'dl', stats: {skills: [0,0,0,0,4]}}, 
+            {playerId: 5, position: 'dl', stats: {skills: [0,0,0,0,5]}}, 
+            {playerId: 6, position: 'olb', stats: {skills: [0,0,0,0,0]}}
         ]
     },
     teamB: {
         name: 'B',
         players: [
-            {position: 'ol', stats: {skills: [0,0,0,0,0]}}, 
-            {position: 'rb', stats: {skills: [0,0,0,0,0]}}
+            {playerId: 10, position: 'ol', stats: {skills: [0,0,0,0,1]}}, 
+            {playerId: 11, position: 'ol', stats: {skills: [0,0,0,0,2]}}, 
+            {playerId: 12, position: 'ol', stats: {skills: [0,0,0,0,3]}}, 
+            {playerId: 13, position: 'ol', stats: {skills: [0,0,0,0,4]}}, 
+            {playerId: 14, position: 'ol', stats: {skills: [0,0,0,0,5]}}, 
+            {playerId: 15, position: 'rb', stats: {skills: [0,0,0,0,0]}}
         ]
         
     }

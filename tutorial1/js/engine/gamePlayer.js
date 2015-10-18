@@ -95,28 +95,36 @@ define([
 
       var dScore = 0;
       _.each(dByP['dl'], function(player) {
-        dScore += Math.abs(player.stats.skills[4]) + Math.random() * 2; // blocking
+        dScore += Math.abs(player.stats.skills[4] + Math.random() * 2); // blocking
       });
 
       var blockBonus = oScore - dScore;
 
       if(blockBonus < -2) {
         // defense has a free blocker at the line and can try to disrupt the play.
-        var x = {};
-        _.each(dByP['dl'], function(player) {
-          x[player.id] = player.stats.skills[4];
-        });
-
-        var freeDefenderDist = { first: {ok: 1},
-          ok: x
-        };
-
-        var playerId = app.ProbabilityResolver.resolve(ratingDistribution);
-        var freeDefender = _.find(defensePlayers, function(player) { return player.id === playerId});
-        
+        var unblockedDefenders = this.getUnBlockedDL(dByP);
       }
     }
   };
+
+  app.GamePlayer.getUnBlockedDL = function(dByP) {
+    var defensersWeightedBySkill = {};
+     _.each(dByP['dl'], function(player) {
+      defensersWeightedBySkill[player.playerId] = player.stats.skills[4];
+    });
+
+    var freeDefenderDist = { first: {ok: 1},
+      ok: defensersWeightedBySkill
+    };
+
+    var playerId = app.ProbabilityResolver.resolve(freeDefenderDist);
+
+    var freeDefender = _.find(dByP['dl'], function(player) { 
+      return player.playerId == playerId
+    });
+
+    return freeDefender;
+  }
 }())
 
 
