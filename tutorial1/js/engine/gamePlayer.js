@@ -108,13 +108,13 @@ define([
   };
 
   app.GamePlayer.getUnBlockedDL = function(dByP) {
-    var defensersWeightedBySkill = {};
+    var dBySkill = {};
      _.each(dByP['dl'], function(player) {
-      defensersWeightedBySkill[player.playerId] = player.stats.skills[4];
+      dBySkill[player.playerId] = player.stats.skills[4];
     });
 
     var freeDefenderDist = { first: {ok: 1},
-      ok: defensersWeightedBySkill
+      ok: dBySkill
     };
 
     var playerId = app.ProbabilityResolver.resolve(freeDefenderDist);
@@ -124,7 +124,7 @@ define([
     });
 
     return freeDefender;
-  }
+  };
 }())
 
 
