@@ -40,6 +40,10 @@ describe('GamePlayer - ', function() {
         var result = gp.playGame(data.teamA, data.teamB);
         assert.equal(result.teams[0], data.teamA);
         assert.equal(result.teams[1], data.teamB);
+
+        // for(var i = 0; i < 1000; i++) {
+        //     gp.playGame(data.teamA, data.teamB);
+        // }
     });
 });    
 

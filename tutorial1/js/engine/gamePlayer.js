@@ -108,23 +108,28 @@ define([
   };
 
   app.GamePlayer.getUnBlockedDL = function(dByP) {
-    var dBySkill = {};
-     _.each(dByP['dl'], function(player) {
-      dBySkill[player.playerId] = player.stats.skills[4];
-    });
+    var pDist = this.getWeightBySkill(dByP['dl'], function(p) { return p.stats.skills[4]; }),
+      playerId = app.ProbabilityResolver.resolve(pDist);
 
-    var freeDefenderDist = { first: {ok: 1},
-      ok: dBySkill
-    };
-
-    var playerId = app.ProbabilityResolver.resolve(freeDefenderDist);
-
-    var freeDefender = _.find(dByP['dl'], function(player) { 
+    return _.find(dByP['dl'], function(player) { 
       return player.playerId == playerId
     });
-
-    return freeDefender;
   };
+
+  app.GamePlayer.getWeightBySkill = function(players, skillSelector) {
+    var distribution = {};
+    //
+    _.each(players, function(player) {
+      distribution[player.playerId] = skillSelector(player);
+    });
+
+    // returns an object of the form:
+    //   { player-1-Id: skillRating, player-2-Id: skillRating}
+
+    return { first: {ok: 1},
+      ok: distribution
+    }; 
+  };  
 }())
 
 
