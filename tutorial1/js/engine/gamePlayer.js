@@ -50,6 +50,11 @@ define([
         possesionStats: {}
       };
 
+
+    this.oByP = _.groupBy(offense.players, function(player) { return player.position });
+    this.dByP = _.groupBy(defense.players, function(player) { return player.position });
+
+
     while(possessionState.result === '?') {
       possessionState = this.resolvePlay(gameState, possessionState);
     }
@@ -60,22 +65,26 @@ define([
   };
 
   app.GamePlayer.resolvePlay = function(gameState, possessionState) {
-    this.resolvePlayX(gameState, possessionState);
+    var p = this.resolvePlayX(gameState, possessionState);
+    //console.log(p);
+
     possessionState.result = 'ok';
     return possessionState;
   }
+
+  app.GamePlayer.getGrouping = function(team) {
+    return _.groupBy(offensePlayers, function(player) { return player.position });
+  }
+
 
   app.GamePlayer.resolvePlayX = function(gameState, possessionState) {
     var playClock = 0,
       offensePlayers = possessionState.offense.players,
       defensePlayers = possessionState.defense.players;
 
-    var oByP = _.groupBy(offensePlayers, function(player) { return player.position });
-    var dByP = _.groupBy(defensePlayers, function(player) { return player.position });
-
     var oDist = {
       first: {ok: 1},
-      ok: { 'spread': 1, 'handoff': 1}
+      ok: { 'spread': 0, 'handoff': 8}
     };
 
     var dDist = {
@@ -88,22 +97,50 @@ define([
 
     if(oPlay === 'handoff') {
       var oScore = 0;
-      var ballCarrier = oByP['rb'][0];
-      _.each(oByP['ol'], function(player) {
+      var ballCarrier = this.oByP['rb'][0];
+      _.each(this.oByP['ol'], function(player) {
         oScore += Math.abs(player.stats.skills[4] + Math.random() * 2); // blocking
       });
 
       var dScore = 0;
-      _.each(dByP['dl'], function(player) {
+      _.each(this.dByP['dl'], function(player) {
         dScore += Math.abs(player.stats.skills[4] + Math.random() * 2); // blocking
       });
 
       var blockBonus = oScore - dScore;
+      var ret;
 
       if(blockBonus < -2) {
         // defense has a free blocker at the line and can try to disrupt the play.
-        var unblockedDefenders = this.getUnBlockedDL(dByP);
+        var unblockedDefenders = this.getUnBlockedDL(this.dByP);
+        
+
+        _.each(unblockedDefenders, function(player) {
+          if(!ret && player.stats.skills[3] + Math.random() * 200 > ballCarrier.stats.skills[3]) {
+            ret = {
+              tackle: player.playerId,
+              rush: ballCarrier.playerId,
+              yards: Math.round((3 - Math.random() * 5))
+            };
+          } else {
+            ret = {
+              tackle: null,
+              rush: ballCarrier.playerId,
+              yards: 80,
+              score: ballCarrier.playerId
+            };            
+          }
+        });
+      } else {
+        ret = {
+          tackle: null,
+          rush: ballCarrier.playerId,
+          yards: 80,
+          score: ballCarrier.playerId
+        };
       }
+
+      return ret;
     }
   };
 
@@ -111,8 +148,8 @@ define([
     var pDist = this.getWeightBySkill(dByP['dl'], function(p) { return p.stats.skills[4]; }),
       playerId = app.ProbabilityResolver.resolve(pDist);
 
-    return _.find(dByP['dl'], function(player) { 
-      return player.playerId == playerId
+    return _.filter(dByP['dl'], function(player) { 
+      return player.playerId == playerId;
     });
   };
 
