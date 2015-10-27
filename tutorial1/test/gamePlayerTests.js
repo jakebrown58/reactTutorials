@@ -13,7 +13,7 @@ var data = {
             {playerId: 3, position: 'dl', stats: {skills: [0,0,0,0,3]}}, 
             {playerId: 4, position: 'dl', stats: {skills: [0,0,0,0,4]}}, 
             {playerId: 5, position: 'dl', stats: {skills: [0,0,0,0,5]}}, 
-            {playerId: 6, position: 'olb', stats: {skills: [0,0,0,0,0]}}
+            {playerId: 6, position: 'olb', stats: {skills: [0,0,0,0,3]}}
         ]
     },
     teamB: {

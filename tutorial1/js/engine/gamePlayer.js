@@ -66,7 +66,7 @@ define([
 
   app.GamePlayer.resolvePlay = function(gameState, possessionState) {
     var p = this.resolvePlayX(gameState, possessionState);
-    //console.log(p);
+    console.log(p);
 
     possessionState.result = 'ok';
     return possessionState;
@@ -110,47 +110,65 @@ define([
       var blockBonus = oScore - dScore;
       var ret;
 
-      if(blockBonus < -2) {
-        // defense has a free blocker at the line and can try to disrupt the play.
-        var unblockedDefenders = this.getUnBlockedDL(this.dByP);
+      if(blockBonus > 0) {
+        ret = this.resolveUnblockedDL(ballCarrier);
+
+        if(ret.tackle) {
+          return ret;
+        }
+        ret = this.resolveLinebackers(ballCarrier);
         
-
-        _.each(unblockedDefenders, function(player) {
-          if(!ret && player.stats.skills[3] + Math.random() * 200 > ballCarrier.stats.skills[3]) {
-            ret = {
-              tackle: player.playerId,
-              rush: ballCarrier.playerId,
-              yards: Math.round((3 - Math.random() * 5))
-            };
-          } else {
-            ret = {
-              tackle: null,
-              rush: ballCarrier.playerId,
-              yards: 80,
-              score: ballCarrier.playerId
-            };            
-          }
-        });
-      } else {
-        ret = {
-          tackle: null,
-          rush: ballCarrier.playerId,
-          yards: 80,
-          score: ballCarrier.playerId
-        };
+        if(ret.tackle) {
+          return ret;
+        }
       }
-
+      
       return ret;
     }
   };
 
-  app.GamePlayer.getUnBlockedDL = function(dByP) {
-    var pDist = this.getWeightBySkill(dByP['dl'], function(p) { return p.stats.skills[4]; }),
+  app.GamePlayer.resolveLinebackers = function(ballCarrier) {
+    var player = this.getRandomDefenderBySkillWeight('olb', 4);
+    return {
+      tackle: player[0].playerId,
+      rush: ballCarrier.playerId,
+      yards: Math.round((15 - Math.random() * 16))
+    };
+  };
+
+  app.GamePlayer.resolveUnblockedDL = function(ballCarrier) {
+      // defense has a free blocker at the line and can try to disrupt the play.
+      var unblockedDefenders = this.getUnBlockedDL(this.dByP),
+        ret = {};
+
+      _.each(unblockedDefenders, function(player) {
+        if(player.stats.skills[3] + Math.random() * 2 > ballCarrier.stats.skills[3] + Math.random() * 2) {
+          ret = {
+            tackle: player.playerId,
+            rush: ballCarrier.playerId,
+            yards: Math.round((3 - Math.random() * 6))
+          };
+        }
+      });
+
+      // if(!ret.tackle) {
+      //   ret.neutralized = unblockedDefenders;  // overpursued the play / missed tackle.
+      // }
+
+      return ret;
+  }
+
+  app.GamePlayer.getRandomDefenderBySkillWeight = function(position, skill) {
+    var pDist = this.getWeightBySkill(this.dByP[position], function(p) { return p.stats.skills[skill]; }),
       playerId = app.ProbabilityResolver.resolve(pDist);
 
-    return _.filter(dByP['dl'], function(player) { 
+    return _.filter(this.dByP[position], function(player) { 
       return player.playerId == playerId;
     });
+  };
+
+  app.GamePlayer.getUnBlockedDL = function(dByP) {
+    return this.getRandomDefenderBySkillWeight('dl', 4);
   };
 
   app.GamePlayer.getWeightBySkill = function(players, skillSelector) {
